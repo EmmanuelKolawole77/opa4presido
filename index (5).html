@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opa4President | Official Campaign Website of Engr Opakunle</title>
+  <meta name="description" content="Official campaign website: manifesto, town halls and ways to get involved.">
+  <meta name="theme-color" content="#0F172A">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Fonts only (not a CSS framework). Remove this line to use system fonts. -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- =========================================================
+       1. STICKY NAVIGATION
+       ========================================================= -->
+  <header class="site-header" id="siteHeader">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="Go to top of page">
+        <span class="brand__badge" id="brandBadge" aria-hidden="true">OPA</span>
+        <span class="brand__text">
+          <span class="brand__name" data-bind="candidateName">Engr. Opakunle J.A.</span>
+          <span class="brand__office" data-bind="officeShort">For President, Progressive Cooperative CICS, LAUTECH Ogbomoso</span>
+        </span>
+      </a>
+
+      <button class="nav__toggle" id="navToggle" type="button"
+              aria-expanded="false" aria-controls="navMenu" aria-label="Open menu">
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+      </button>
+
+      <ul class="nav__menu" id="navMenu">
+        <li><a class="nav__link" href="#home">Home</a></li>
+        <li><a class="nav__link" href="#about">About</a></li>
+        <li><a class="nav__link" href="#manifesto">Manifesto</a></li>
+        <li><a class="btn btn--gold nav__cta" href="#get-involved">Get Involved</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- =========================================================
+         2. HERO
+         ========================================================= -->
+    <section class="hero" id="home" aria-labelledby="heroTitle">
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <p class="eyebrow" data-bind="officeFull">For President, Progressive Cooperative CICS, LAUTECH Ogbomoso</p>
+          <h1 class="hero__title" id="heroTitle">
+            Vote <span class="text-gold" data-bind="candidateName">Engr. Opakunle J.A.</span>
+          </h1>
+          <p class="hero__slogan" data-bind="slogan">Together For A Greater Tomorrow</p>
+
+          <div class="hero__actions">
+            <a class="btn btn--gold" href="#manifesto">Read the Manifesto</a>
+            <a class="btn btn--outline" href="#get-involved">Join the Movement</a>
+          </div>
+
+          <!-- Live countdown -->
+          <div class="countdown" role="timer" aria-label="Countdown to election day">
+            <p class="countdown__label">Election Day: <strong id="electionDateText">--</strong></p>
+            <div class="countdown__grid" id="countdownGrid">
+              <div class="countdown__box"><span class="countdown__num" id="cdDays">00</span><span class="countdown__unit">Days</span></div>
+              <div class="countdown__box"><span class="countdown__num" id="cdHours">00</span><span class="countdown__unit">Hours</span></div>
+              <div class="countdown__box"><span class="countdown__num" id="cdMinutes">00</span><span class="countdown__unit">Minutes</span></div>
+              <div class="countdown__box"><span class="countdown__num" id="cdSeconds">00</span><span class="countdown__unit">Seconds</span></div>
+            </div>
+            <p class="countdown__done" id="countdownDone" hidden>Election Day is here. Come out and vote!</p>
+          </div>
+        </div>
+
+        <div class="hero__media">
+          <!--
+            CANDIDATE PHOTO:
+            To use a real photo, delete the whole <div class="photo-placeholder"> block below
+            and put this in its place:
+            <img src="images/candidate.jpg" alt="Portrait of Candidate Name" width="640" height="800">
+            The .photo-frame class crops it to a clean 4:5 portrait automatically.
+          -->
+          <figure class="photo-frame">
+            <img src="image/engr opa.jpg" alt="Portrait of Candidate Name" width="640" height="800">
+            <figcaption class="photo-frame__caption">
+              <span data-bind="candidateName">Engr. Opakunle J.A.</span>
+              <small data-bind="officeShort">For President, Progressive Cooperative CICS, LAUTECH Ogbomoso</small>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         3. BIOGRAPHY & TRACK RECORD
+         ========================================================= -->
+    <section class="section" id="about" aria-labelledby="aboutTitle">
+      <div class="container">
+        <header class="section__head">
+          <p class="eyebrow eyebrow--dark">Meet the Candidate</p>
+          <h2 class="section__title" id="aboutTitle">A Member Who Has Always Served Members</h2>
+        </header>
+
+        <div class="about__grid">
+          <article class="about__story">
+            <div id="bioParagraphs"><!-- Filled from campaignData.biography.paragraphs --></div>
+
+            <h3 class="about__subhead">Core Values</h3>
+            <ul class="values" id="valuesList"><!-- Filled from campaignData.biography.values --></ul>
+          </article>
+
+          <aside class="about__record" aria-labelledby="recordTitle">
+            <h3 id="recordTitle" class="about__subhead">Track Record</h3>
+            <ul class="achievements" id="achievementList"><!-- Filled from campaignData.biography.achievements --></ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         4. INTERACTIVE MANIFESTO HUB
+         ========================================================= -->
+    <section class="section section--dark" id="manifesto" aria-labelledby="manifestoTitle">
+      <div class="container">
+        <header class="section__head">
+          <p class="eyebrow">The Plan</p>
+          <h2 class="section__title" id="manifestoTitle">Our Manifesto for the Cooperative</h2>
+          <p class="section__lead">Five pillars. Specific commitments. Explore each one below, read the full document, or take a copy with you.</p>
+        </header>
+
+        <!-- Tabbed policy explorer -->
+        <div class="tabs">
+          <div class="tabs__list" id="tabList" role="tablist" aria-label="Manifesto pillars">
+            <!-- Tab buttons are generated from campaignData.pillars -->
+          </div>
+          <div class="tabs__panels" id="tabPanels">
+            <!-- Tab panels are generated from campaignData.pillars -->
+          </div>
+        </div>
+
+        <!-- Manifesto actions -->
+        <div class="manifesto__actions">
+          <button class="btn btn--gold" type="button" id="openReaderBtn" aria-haspopup="dialog">Read Full Manifesto</button>
+
+          <button class="btn btn--outline" type="button" id="downloadBtn">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Download Manifesto
+          </button>
+
+          <!--
+            LATER: to link a real PDF instead of the generated .txt file,
+            put your file in the project folder (e.g. /files/manifesto.pdf),
+            then uncomment this link and delete the #downloadBtn button above.
+
+            <a class="btn btn--outline" href="files/manifesto.pdf" download="Candidate-Name-Manifesto.pdf">
+              Download Manifesto (PDF)
+            </a>
+          -->
+        </div>
+        <p class="manifesto__status" id="manifestoStatus" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+    <!-- =========================================================
+         7. GET INVOLVED
+         ========================================================= -->
+    <section class="section section--dark" id="get-involved" aria-labelledby="involvedTitle">
+      <div class="container involved__grid">
+        <div>
+          <p class="eyebrow">Get Involved</p>
+          <h2 class="section__title" id="involvedTitle">Join the Movement</h2>
+          <p class="section__lead">A cooperative is only as strong as its members. Tell us how you would like to help, then join our WhatsApp group to connect with the team.</p>
+          <ul class="ways" id="waysList"><!-- Filled from campaignData.waysToHelp --></ul>
+        </div>
+
+        <form class="form" id="involvedForm" novalidate>
+          <h3 class="form__title">Sign up to help</h3>
+
+          <div class="field">
+            <label for="fName">Full name</label>
+            <input id="fName" name="name" type="text" autocomplete="name" required>
+            <span class="field__error" id="fNameError" role="alert"></span>
+          </div>
+
+          <div class="field">
+            <label for="fContact">Phone or email</label>
+            <input id="fContact" name="contact" type="text" autocomplete="email" required>
+            <span class="field__error" id="fContactError" role="alert"></span>
+          </div>
+
+          <div class="field">
+            <label for="fMemberId">Cooperative member ID <small>(optional)</small></label>
+            <input id="fMemberId" name="memberId" type="text">
+          </div>
+
+          <div class="field">
+            <label for="fRole">How would you like to help?</label>
+            <textarea id="fRole" name="role" rows="4" maxlength="1000" placeholder="Tell us how you would like to help"></textarea>
+          </div>
+
+          <button class="btn btn--gold btn--block" type="submit">Count Me In</button>
+          <p class="form__hint" id="whatsappGroupStatus" role="status" aria-live="polite"></p>
+          <a class="btn btn--outline btn--block" id="whatsappGroupLink" href="#" target="_blank" rel="noopener noreferrer" hidden>Join our WhatsApp group</a>
+          <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer__inner">
+      <p class="footer__brand"><strong data-bind="candidateName">Engr. Opakunle, J.A.</strong> &middot; <span data-bind="slogan">Together For A Greater Tomorrow</span></p>
+      <p class="footer__legal">Authorised by the <span data-bind="candidateName">Engr. Opa</span> Campaign Committee. &copy; <span id="year"></span></p>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       FULL-SCREEN MANIFESTO READER (native <dialog> = built-in
+       focus trapping, Escape key and accessibility semantics)
+       ========================================================= -->
+  <dialog class="modal" id="readerModal" aria-labelledby="readerTitle">
+    <div class="modal__bar">
+      <h2 class="modal__title" id="readerTitle">Full Manifesto</h2>
+      <div class="modal__tools">
+        <button class="btn btn--small btn--gold" type="button" id="copyBtn">Copy Text</button>
+        <button class="btn btn--small btn--ghost" type="button" id="closeReaderBtn" aria-label="Close manifesto reader">Close &times;</button>
+      </div>
+    </div>
+    <div class="modal__body" id="readerBody" tabindex="0"><!-- Filled from campaignData.manifestoFullText --></div>
+    <p class="modal__status" id="copyStatus" role="status" aria-live="polite"></p>
+  </dialog>
+
+  <script src="script (2).js"></script>
+</body>
+</html>
