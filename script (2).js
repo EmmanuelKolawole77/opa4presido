@@ -562,14 +562,14 @@ function initCountdown() {
   const grid = $("#countdownGrid");
   const doneMessage = $("#countdownDone");
 
-  $("#electionDateText").textContent = formatLongDate(new Date(targetTime)) + " · " + formatTime(new Date(targetTime));
-
   if (Number.isNaN(targetTime)) {
     // Bad date format in campaignData: fail gracefully.
     grid.hidden = true;
     $("#electionDateText").textContent = "Date to be announced";
     return;
   }
+
+  $("#electionDateText").textContent = formatLongDate(new Date(targetTime)) + " · " + formatTime(new Date(targetTime));
 
   function tick() {
     const remaining = targetTime - Date.now();
