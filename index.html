@@ -40,7 +40,7 @@
         <li><a class="nav__link" href="#home">Home</a></li>
         <li><a class="nav__link" href="#about">About</a></li>
         <li><a class="nav__link" href="#manifesto">Manifesto</a></li>
-        <li><a class="btn btn--gold nav__cta" href="#get-involved">Get Involved</a></li>
+        <li><a class="btn btn--gold nav__cta" href="#get-involved">Get in touch</a></li>
       </ul>
     </nav>
   </header>
@@ -61,7 +61,7 @@
 
           <div class="hero__actions">
             <a class="btn btn--gold" href="#manifesto">Read the Manifesto</a>
-            <a class="btn btn--outline" href="#get-involved">Join the Movement</a>
+            <a class="btn btn--outline" href="#get-involved">Got a Question?</a>
           </div>
 
           <!-- Live countdown -->
@@ -73,7 +73,7 @@
               <div class="countdown__box"><span class="countdown__num" id="cdMinutes">00</span><span class="countdown__unit">Minutes</span></div>
               <div class="countdown__box"><span class="countdown__num" id="cdSeconds">00</span><span class="countdown__unit">Seconds</span></div>
             </div>
-            <p class="countdown__done" id="countdownDone" hidden>Election Day is here. Come out and vote!</p>
+            <p class="countdown__done" id="countdownDone" hidden>Election Day is here. Go out and vote!</p>
           </div>
         </div>
 
@@ -166,19 +166,57 @@
       </div>
     </section>
     <!-- =========================================================
-         7. GET INVOLVED
+         5. CAMPAIGN PHOTO SLIDESHOW
+         ========================================================= -->
+    <section class="section section--tint" id="campaign-photos" aria-labelledby="photosTitle">
+      <div class="container">
+        <header class="section__head">
+          <p class="eyebrow eyebrow--dark">Media</p>
+          <h2 class="section__title" id="photosTitle">Together we can move our society forward</h2>
+          <p class="section__lead"></p>
+        </header>
+
+        <div class="slideshow" id="campaignSlideshow" role="region" aria-roledescription="carousel" aria-label="Campaign photos">
+          <div class="slideshow__stage" aria-live="polite">
+            <figure class="slideshow__slide" role="group" aria-roledescription="slide" aria-label="1 of 3">
+              <img src="image/IMG-20261123-WA0009.jpg" alt="Engr. Opakunle seated among attendees at a community gathering" loading="lazy" decoding="async">
+              <figcaption>Accountable</figcaption>
+            </figure>
+            <figure class="slideshow__slide" role="group" aria-roledescription="slide" aria-label="2 of 3" hidden>
+              <img src="image/IMG-20261123-WA0011.jpg" alt="Engr. Opakunle listening at a community gathering" loading="lazy" decoding="async">
+              <figcaption>Approachable</figcaption>
+            </figure>
+            <figure class="slideshow__slide" role="group" aria-roledescription="slide" aria-label="3 of 3" hidden>
+              <img src="image/IMG-20261123-WA0012.jpg" alt="Campaign poster for Engr. Opakunle J.A., candidate for Progressive Cooperative CICS president" loading="lazy" decoding="async">
+              <figcaption>Engr. Opakunle J.A. for President</figcaption>
+            </figure>
+          </div>
+          <div class="slideshow__controls">
+            <button class="btn btn--ghost" type="button" id="photoPrevious" aria-label="Show previous photo">Previous</button>
+            <div class="slideshow__indicators" role="group" aria-label="Choose a campaign photo">
+              <button class="slideshow__indicator" type="button" aria-label="Show photo 1 of 3" aria-pressed="true"></button>
+              <button class="slideshow__indicator" type="button" aria-label="Show photo 2 of 3" aria-pressed="false"></button>
+              <button class="slideshow__indicator" type="button" aria-label="Show photo 3 of 3" aria-pressed="false"></button>
+            </div>
+            <button class="btn btn--ghost" type="button" id="photoNext" aria-label="Show next photo">Next</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         6. GET IN TOUCH
          ========================================================= -->
     <section class="section section--dark" id="get-involved" aria-labelledby="involvedTitle">
       <div class="container involved__grid">
         <div>
-          <p class="eyebrow">Get Involved</p>
-          <h2 class="section__title" id="involvedTitle">Join the Movement</h2>
-          <p class="section__lead">A cooperative is only as strong as its members. Tell us how you would like to help, then join our WhatsApp group to connect with the team.</p>
-          <ul class="ways" id="waysList"><!-- Filled from campaignData.waysToHelp --></ul>
+          <p class="eyebrow">Get in touch</p>
+          <h2 class="section__title" id="involvedTitle">Got questions?</h2>
+          <p class="section__lead" id="electionCallout" aria-live="polite">Election Day is December 3, 2026. Send me a question or message using WhatsApp or email.</p>
         </div>
 
         <form class="form" id="involvedForm" novalidate>
-          <h3 class="form__title">Sign up to help</h3>
+          <h3 class="form__title">Send me a message</h3>
 
           <div class="field">
             <label for="fName">Full name</label>
@@ -198,13 +236,16 @@
           </div>
 
           <div class="field">
-            <label for="fRole">How would you like to help?</label>
-            <textarea id="fRole" name="role" rows="4" maxlength="1000" placeholder="Tell us how you would like to help"></textarea>
+            <label for="fRole">Your question or message</label>
+            <textarea id="fRole" name="role" rows="4" maxlength="1000" placeholder="Ask a question or leave us a message" required></textarea>
+            <span class="field__error" id="fRoleError" role="alert"></span>
           </div>
 
-          <button class="btn btn--gold btn--block" type="submit">Count Me In</button>
-          <p class="form__hint" id="whatsappGroupStatus" role="status" aria-live="polite"></p>
-          <a class="btn btn--outline btn--block" id="whatsappGroupLink" href="#" target="_blank" rel="noopener noreferrer" hidden>Join our WhatsApp group</a>
+        
+          <div class="form__actions">
+            <button class="btn btn--gold btn--block" type="submit" data-channel="whatsapp">Send via WhatsApp</button>
+            <button class="btn btn--outline btn--block" type="submit" data-channel="email">Send via email</button>
+          </div>
           <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
         </form>
       </div>

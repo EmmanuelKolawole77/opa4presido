@@ -34,11 +34,9 @@ const campaignData = {
   officeFull: "Candidate for President, Progressive Cooperative CICS, LAUTECH Ogbomoso",
   slogan: "Together For A Greater Tomorrow",
   societyName: "Progressive Cooperative CICS, LAUTECH Ogbomoso",      // Used inside the manifesto text
-  whatsappGroupUrl: "", // Add the WhatsApp group invite URL here when available.
-
   /* Election date: ISO format with timezone. +01:00 = Nigerian time (WAT).
      Format: "YYYY-MM-DDTHH:MM:SS+01:00" */
-  electionDate: "2026-12-10T08:00:00+01:00",
+  electionDate: "2026-12-03T00:00:00+01:00",
 
   /* ---- Biography ---- */
   biography: {
@@ -51,10 +49,10 @@ const campaignData = {
 
     /* 3-4 measurable milestones: `value` is the big number, `label` explains it. */
     achievements: [
-      { value: "15+ Years",   label: "Of continuous membership and volunteer service" },
+      { value: "19 Years",   label: "Of continuous membership and volunteer service" },
       { value: "200+",       label: "New members recruited through community outreach" },
-      { value: "100%",       label: "Of committee reports he presented were published to members" },
-      { value: "5+ Projects", label: "Member welfare initiatives launched and supported" }
+      { value: "100%",       label: "Commitment to the activities of the society" },
+      { value: "Member Welfare", label: "Member welfare initiatives launched and supported" }
     ]
   },
 
@@ -234,13 +232,6 @@ Let’s build a cooperative that is steady, fair, and dependable for every membe
     { quote: "He has the experience and the patience this society needs right now.", name: "Elder Name", role: "Community Elder" }
   ],
 
-  /* ---- Ways to help (also fills the form dropdown) ---- */
-  waysToHelp: [
-    { title: "Volunteer",         detail: "Help with mobilisation, posters and logistics." },
-    { title: "Spread the word",   detail: "Talk to fellow members and share the manifesto." },
-    { title: "Host a meeting",    detail: "Invite the candidate to meet your association or group." },
-    { title: "Be a polling agent", detail: "Help ensure a fair and orderly vote on election day." }
-  ]
 };
 
 
@@ -407,57 +398,6 @@ function renderEndorsements() {
   });
 }
 
-/** "Ways to help" list and the form's dropdown options. */
-function renderWaysToHelp() {
-  const list = $("#waysList");
-  if (!list) {
-    return;
-  }
-
-  campaignData.waysToHelp.forEach(function (way) {
-    const item = createElement("li");
-    item.appendChild(createElement("span", "ways__dot"));
-    const textWrap = createElement("div");
-    textWrap.appendChild(createElement("strong", "", way.title));
-    textWrap.appendChild(createElement("span", "", way.detail));
-    item.appendChild(textWrap);
-    list.appendChild(item);
-  });
-}
-
-/** Show the WhatsApp group link when a valid invite URL has been configured. */
-function renderWhatsAppGroupLink() {
-  const link = $("#whatsappGroupLink");
-  const status = $("#whatsappGroupStatus");
-  const groupUrl = campaignData.whatsappGroupUrl.trim();
-
-  if (!groupUrl) {
-    link.hidden = true;
-    status.textContent = "The WhatsApp group link will be added here soon.";
-    return;
-  }
-
-  let url;
-  try {
-    url = new URL(groupUrl);
-  } catch (error) {
-    link.hidden = true;
-    status.textContent = "The WhatsApp group link has not been configured correctly.";
-    return;
-  }
-
-  if (url.protocol !== "https:" || !/(^|\.)whatsapp\.com$/i.test(url.hostname)) {
-    link.hidden = true;
-    status.textContent = "The WhatsApp group link has not been configured correctly.";
-    return;
-  }
-
-  link.href = url.href;
-  link.hidden = false;
-  status.textContent = "Join the WhatsApp group to connect with the campaign team.";
-}
-
-
 /* =====================================================================
    4. NAVIGATION
    ===================================================================== */
@@ -561,6 +501,7 @@ function initCountdown() {
   const targetTime = new Date(campaignData.electionDate).getTime();
   const grid = $("#countdownGrid");
   const doneMessage = $("#countdownDone");
+  const electionCallout = $("#electionCallout");
 
   if (Number.isNaN(targetTime)) {
     // Bad date format in campaignData: fail gracefully.
@@ -569,7 +510,7 @@ function initCountdown() {
     return;
   }
 
-  $("#electionDateText").textContent = formatLongDate(new Date(targetTime)) + " · " + formatTime(new Date(targetTime));
+  $("#electionDateText").textContent = formatLongDate(new Date(targetTime));
 
   function tick() {
     const remaining = targetTime - Date.now();
@@ -577,6 +518,7 @@ function initCountdown() {
     if (remaining <= 0) {
       grid.hidden = true;
       doneMessage.hidden = false;
+      electionCallout.textContent = "It's Election Day! Go out and vote.";
       window.clearInterval(intervalId);
       return;
     }
@@ -595,6 +537,36 @@ function initCountdown() {
 
   const intervalId = window.setInterval(tick, 1000);
   tick(); // Run once immediately so there is no 1-second blank.
+}
+
+function initPhotoSlideshow() {
+  const slideshow = $("#campaignSlideshow");
+  const slides = Array.from(slideshow.querySelectorAll(".slideshow__slide"));
+  const indicators = Array.from(slideshow.querySelectorAll(".slideshow__indicator"));
+  let currentIndex = 0;
+
+  function showSlide(index) {
+    currentIndex = (index + slides.length) % slides.length;
+
+    slides.forEach(function (slide, slideIndex) {
+      slide.hidden = slideIndex !== currentIndex;
+    });
+    indicators.forEach(function (indicator, slideIndex) {
+      indicator.setAttribute("aria-pressed", String(slideIndex === currentIndex));
+    });
+  }
+
+  $("#photoPrevious", slideshow).addEventListener("click", function () {
+    showSlide(currentIndex - 1);
+  });
+  $("#photoNext", slideshow).addEventListener("click", function () {
+    showSlide(currentIndex + 1);
+  });
+  indicators.forEach(function (indicator, index) {
+    indicator.addEventListener("click", function () {
+      showSlide(index);
+    });
+  });
 }
 
 
@@ -1017,7 +989,7 @@ function initEvents() {
 
 /* =====================================================================
    10. GET-INVOLVED FORM
-   (Front-end only. See the TODO below to connect a real backend.)
+   (Front-end only. Opens the selected email or WhatsApp app with a prepared message.)
    ===================================================================== */
 
 /** Validate one field; show or clear its error message. Returns true if valid. */
@@ -1050,17 +1022,34 @@ function initInvolvedForm() {
       function (value) { return value.length >= 2; }, "Please enter your full name.");
     const contactOk = validateField("fContact", "fContactError",
       isValidContact, "Enter a valid phone number or email address.");
+    const messageOk = validateField("fRole", "fRoleError",
+      function (value) { return value.length > 0; }, "Please enter your question or message.");
 
-    if (!nameOk || !contactOk) {
+    if (!nameOk || !contactOk || !messageOk) {
       status.textContent = "";
       return;
     }
 
-    const firstName = $("#fName").value.trim().split(" ")[0];
-    const message = $("#whatsappGroupLink").hidden
-      ? "Thank you, " + firstName + ". Your details were not sent. The WhatsApp group link will be available here soon."
-      : "Thank you, " + firstName + ". This page does not send your details. Use the WhatsApp link below to connect with the team.";
-    flashStatus(status, message, 8000);
+    const values = new FormData(form);
+    const message = [
+      "Website message for Engr. Opakunle J.A.",
+      "Name: " + values.get("name").trim(),
+      "Phone or email: " + values.get("contact").trim(),
+      "Cooperative member ID: " + (values.get("memberId").trim() || "Not provided"),
+      "Question or message: " + values.get("role").trim()
+    ].join("\n");
+    const channel = event.submitter && event.submitter.dataset.channel;
+
+    if (channel === "email") {
+      status.textContent = "Opening your email app with your message addressed to josephopakunle7@gmail.com.";
+      window.location.href = "mailto:josephopakunle7@gmail.com?subject="
+        + encodeURIComponent("Website message for Engr. Opakunle J.A.")
+        + "&body=" + encodeURIComponent(message);
+      return;
+    }
+
+    status.textContent = "Opening WhatsApp with your message addressed to 08136064328.";
+    window.location.href = "https://wa.me/2348136064328?text=" + encodeURIComponent(message);
   });
 }
 
@@ -1072,12 +1061,11 @@ document.addEventListener("DOMContentLoaded", function () {
   renderBoundText();
   renderBiography();
   renderEndorsements();
-  renderWaysToHelp();
-  renderWhatsAppGroupLink();
   renderManifestoTabs();
 
   initNavigation();
   initCountdown();
+  initPhotoSlideshow();
   initManifestoTabs();
   initReaderModal();
   initDownload();
